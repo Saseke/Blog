@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="service.Iauthor">
+
+    <resultMap type="model.Author" id="AuthorResult">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="username" jdbcType="VARCHAR" property="username"/>
+        <result column="password" jdbcType="VARCHAR" property="password"/>
+        <result column="description" jdbcType="VARCHAR" property="description"/>
+        <result column="date" jdbcType="TIMESTAMP" property="date"/>
+        <result column="image" jdbcType="INTEGER" property="image"/>
+    </resultMap>
+<!--根据id查找作者-->
+<select id="findAuthor" parameterType="int" resultMap="AuthorResult">
+    SELECT * FROM author WHERE id = #{id}
+</select>
+    <!--添加作者-->
+<insert id="addAuthor" parameterType="model.Author">
+    INSERT INTO author VALUES (#{id},#{username},#{password},#{description},#{date},0)
+</insert>
+    <!--根据用户名登录-->
+<select id="login" parameterType="java.lang.String" resultMap="AuthorResult">
+    SELECT * FROM author WHERE username = #{username}
+</select>
+<select id="listAuthor"  resultMap="AuthorResult">
+    SELECT * FROM author
+</select>
+<update id="updateImage" parameterType="int">
+    UPDATE author SET image = 1 WHERE id = #{id}
+</update>
+
+
+</mapper>
